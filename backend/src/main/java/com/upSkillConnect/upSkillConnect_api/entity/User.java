@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 
+import com.upSkillConnect.upSkillConnect_api.entity.enums.Role;
+import com.upSkillConnect.upSkillConnect_api.entity.enums.Status;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,17 +19,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "users")
 public class User {
-    public enum Status {
-        PENDING,
-        ACTIVE,
-        REJECTED
-    }
-
-    public enum Role {
-        SEEKER,
-        COMPANY,
-        ADMIN
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +38,9 @@ public class User {
     @Column(name = "role", nullable = false)
     private Role role;
 
+    @Column(name = "rejection_reason", nullable = true)
+    private String rejectionReason;
+
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -57,13 +52,15 @@ public class User {
 
     }
 
-    public User(long id, String email, String password, Status status, Role role, LocalDateTime createdAt,
+    public User(long id, String email, String password, Status status, Role role, String rejectionReason,
+            LocalDateTime createdAt,
             LocalDateTime upDatedAt) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.status = status;
         this.role = role;
+        this.rejectionReason = rejectionReason;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -92,12 +89,28 @@ public class User {
         this.password = password;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public void setStatus(Status status) {
         this.status = status;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
     }
 
     public LocalDateTime getCreatedAt() {
