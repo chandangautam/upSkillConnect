@@ -5,23 +5,32 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.upSkillConnect.upSkillConnect_api.common.ApiResponseDTO;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(EmailAlreadyExistsException.class)
-    public ResponseEntity<String> handleEmailExists(EmailAlreadyExistsException message) {
+    public ResponseEntity<ApiResponseDTO<Void>> handleEmailExists(EmailAlreadyExistsException message) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(message.getMessage()); // 409
+                .body(new ApiResponseDTO<>(message.getMessage(), null)); // 409
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<String> handleUserNotFound(UserNotFoundException message) {
+    public ResponseEntity<ApiResponseDTO<Void>> handleUserNotFound(UserNotFoundException message) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(message.getMessage()); // 404
+                .body(new ApiResponseDTO<>(message.getMessage(), null)); // 404
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGenericException(Exception message) {
+    public ResponseEntity<ApiResponseDTO<Void>> handleRoleMismatchException(Exception message) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Something went wrong"); // 500
+                .body(new ApiResponseDTO<>(message.getMessage(), null)); // 404
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponseDTO<Void>> handleGenericException(Exception message) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ApiResponseDTO<>("Something went wrong", null)); // 500
+    }
+
 }
