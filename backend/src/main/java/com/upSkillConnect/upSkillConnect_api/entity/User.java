@@ -3,6 +3,7 @@ package com.upSkillConnect.upSkillConnect_api.entity;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import com.upSkillConnect.upSkillConnect_api.entity.enums.Role;
 import com.upSkillConnect.upSkillConnect_api.entity.enums.Status;
@@ -45,6 +46,7 @@ public class User {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
@@ -52,25 +54,16 @@ public class User {
 
     }
 
-    public User(long id, String email, String password, Status status, Role role, String rejectionReason,
-            LocalDateTime createdAt,
-            LocalDateTime upDatedAt) {
-        this.id = id;
+    public User(String email, String password, Status status, Role role, String rejectionReason) {
         this.email = email;
         this.password = password;
         this.status = status;
         this.role = role;
         this.rejectionReason = rejectionReason;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -117,15 +110,7 @@ public class User {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }
