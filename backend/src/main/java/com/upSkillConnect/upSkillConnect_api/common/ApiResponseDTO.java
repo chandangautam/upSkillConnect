@@ -3,22 +3,22 @@ package com.upSkillConnect.upSkillConnect_api.common;
 public class ApiResponseDTO<T> {
 
     private String message;
-    private T data;
+    boolean success;
 
     public ApiResponseDTO() {
 
     }
 
-    public ApiResponseDTO(String message, T data) {
+    public ApiResponseDTO(String message, boolean success) {
         this.message = message;
-        this.data=data;
-    } 
+        this.success = success;
+    }
 
-    public String getMessage(){
+    public String getMessage() {
         return message;
     }
 
-    public T getData(){
-        return data;
+    public boolean getSuccess() {
+        return success;
     }
 }
