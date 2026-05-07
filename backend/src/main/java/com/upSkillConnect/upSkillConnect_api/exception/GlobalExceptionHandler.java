@@ -12,25 +12,24 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmailAlreadyExistsException.class)
     public ResponseEntity<ApiResponseDTO<Void>> handleEmailExists(EmailAlreadyExistsException message) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(new ApiResponseDTO<>(message.getMessage(), null)); // 409
+                .body(new ApiResponseDTO<>(message.getMessage(), false)); // 409
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ApiResponseDTO<Void>> handleUserNotFound(UserNotFoundException message) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ApiResponseDTO<>(message.getMessage(), null)); // 404
+                .body(new ApiResponseDTO<>(message.getMessage(), false)); // 404
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(RoleMismatchException.class)
     public ResponseEntity<ApiResponseDTO<Void>> handleRoleMismatchException(Exception message) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiResponseDTO<>(message.getMessage(), null)); // 404
+                .body(new ApiResponseDTO<>(message.getMessage(), false)); // 404
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponseDTO<Void>> handleGenericException(Exception message) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiResponseDTO<>("Something went wrong", null)); // 500
+                .body(new ApiResponseDTO<>("Something went wrong", false)); // 500
     }
-
 }
