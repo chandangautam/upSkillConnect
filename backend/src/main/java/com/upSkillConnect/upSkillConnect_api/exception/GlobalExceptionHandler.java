@@ -27,6 +27,18 @@ public class GlobalExceptionHandler {
                 .body(new ApiResponseDTO<>(message.getMessage(), false)); // 404
     }
 
+    @ExceptionHandler(JobNotFoundException.class)
+    public ResponseEntity<ApiResponseDTO<Void>> handleJobNotFound(JobNotFoundException message) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ApiResponseDTO<>(message.getMessage(), false)); // 404
+    }
+
+    @ExceptionHandler(ResumeNotFoundException.class)
+    public ResponseEntity<ApiResponseDTO<Void>> handleJobNotFound(ResumeNotFoundException message) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ApiResponseDTO<>(message.getMessage(), false)); // 404
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponseDTO<Void>> handleGenericException(Exception message) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
