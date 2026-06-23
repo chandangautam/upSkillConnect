@@ -6,10 +6,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.upSkillConnect.upSkillConnect_api.entity.enums.District;
+import com.upSkillConnect.upSkillConnect_api.entity.enums.CompanySize;
 import com.upSkillConnect.upSkillConnect_api.entity.enums.Industry;
+import com.upSkillConnect.upSkillConnect_api.entity.shared.Address;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
@@ -32,21 +34,18 @@ public class CompanyProfile {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "company_id", nullable = false)
     private User user;
 
-    @Column(name = "company_name", nullable = false)
+    @Column(name = "company_name", unique = true, nullable = false)
     private String companyName;
 
+    @Embedded
+    private Address address;
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "district", nullable = false)
-    private District district;
-
-    @Column(name = "address_line")
-    private String addressLine;
-
-    @Column(name = "company_size", nullable = true)
-    private long companySize;
+    @Column(name = "company_size", nullable = false)
+    private CompanySize companySize;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "industry", nullable = false)
@@ -73,14 +72,13 @@ public class CompanyProfile {
 
     }
 
-    public CompanyProfile(User user, String companyName, District district, String addressLine, Long companySize,
+    public CompanyProfile(User user, String companyName, Address address, CompanySize companySize,
             Industry industry,
             String companyWebsite,
             String companyBio, String companyLogo) {
         this.user = user;
         this.companyName = companyName;
-        this.district = district;
-        this.addressLine = addressLine;
+        this.address = address;
         this.companySize = companySize;
         this.industry = industry;
         this.companyWebsite = companyWebsite;
@@ -108,27 +106,19 @@ public class CompanyProfile {
         this.companyName = companyName;
     }
 
-    public District getCompanyDistrict() {
-        return district;
+    public Address getCompanyAddress() {
+        return address;
     }
 
-    public void setCompanyDistrict(District district) {
-        this.district = district;
+    public void setCompanyAddress(Address address) {
+        this.address = address;
     }
 
-    public String getCompanyAddressLine() {
-        return addressLine;
-    }
-
-    public void setCompanyAddressLine(String addressLine) {
-        this.addressLine = addressLine;
-    }
-
-    public long getCompanySize() {
+    public CompanySize getCompanySize() {
         return companySize;
     }
 
-    public void setCompanySize(Long companySize) {
+    public void setCompanySize(CompanySize companySize) {
         this.companySize = companySize;
     }
 
