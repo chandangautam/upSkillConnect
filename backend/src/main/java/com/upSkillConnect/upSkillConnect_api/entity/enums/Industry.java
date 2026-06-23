@@ -1,12 +1,23 @@
 package com.upSkillConnect.upSkillConnect_api.entity.enums;
 
 public enum Industry {
-    SOFTWARE,
-    HEALTH,
-    TECH,
-    FINANCE,
-    MARKETING,
+    AGRICULTURE,
+    AUTOMOTIVE,
     CONSTRUCTION,
-    TRAVEL,
-    RETAIL
+    CONSULTING,
+    EDUCATION,
+    E_COMMERCE,
+    FINANCE,
+    FINTECH,
+    HEALTH,
+    HOSPITALITY,
+    LEGAL,
+    LOGISTICS,
+    MANUFACTURING,
+    MARKETING,
+    MEDIA,
+    RETAIL,
+    SOFTWARE,
+    TECHNOLOGY,
+    TRAVEL
 }
